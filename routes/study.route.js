@@ -18,5 +18,5 @@ module.exports = (app) => {
   // Delete a study with id
   router.delete("/:id", study.delete);
 
-  app.use("/study", router);
+  app.use("/api/study", router);
 };

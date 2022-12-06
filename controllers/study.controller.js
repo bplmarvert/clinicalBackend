@@ -9,7 +9,7 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a Study
+  // The data is valid we fill it in the structure that will be saved
   const study = new Study({
     studyName: req.body.studyName,
     studyObjective: req.body.studyObjective,
@@ -70,12 +70,14 @@ exports.findOne = (req, res) => {
 // Update a Study by the id in the request
 exports.update = (req, res) => {
   if (!req.body) {
+    // information received by post
     return res.status(400).send({
       message: "Data to update can not be empty!",
     });
   }
 
   const id = req.params.id;
+  // asscess to the information for get and post is in the URL so PARAMS is used
   Study.findByIdAndUpdate(id, req.body)
     .then((data) => {
       if (!data) {
@@ -94,7 +96,6 @@ exports.update = (req, res) => {
 // Delete a Study with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
-
   Study.findByIdAndRemove(id)
     .then((data) => {
       if (!data) {
@@ -108,6 +109,7 @@ exports.delete = (req, res) => {
       }
     })
     .catch((err) => {
+      console.log(err);
       res.status(500).send({
         message: "Could not delete the Study that has id: " + id,
       });
