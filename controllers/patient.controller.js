@@ -1,44 +1,45 @@
 const db = require("../models");
-const Study = db.study;
+const Patient = db.patient;
 
-// Create and Save a new Study
+// Create and Save a new Patient
 exports.create = (req, res) => {
-  console.log("create");
   // Validate request
-  if (!req.body.studyName) {
+  console.log("req.body in patient.controller exports.create", req.body);
+  if (!req.body.patientName) {
     res.status(400).send({ message: "Content can not be empty!" });
     return;
   }
 
   // The data is valid we fill it in the structure that will be saved
-  const study = new Study({
+  const patient = new Patient({
     studyName: req.body.studyName,
-    studyObjective: req.body.studyObjective,
-    testedDrug: req.body.testedDrug,
-    comparedDrug: req.body.comparedDrug,
+    patientName: req.body.patientName,
+    birthday: req.body.birthday,
+    sex: req.body.sex,
+    email: req.body.email,
   });
 
-  // Save Study in the database
-  study
-    .save(study)
+  // Save Patient in the database
+  patient
+    .save(patient)
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "an error occurred while creating the study.",
+        message: err.message || "an error occurred while creating the patient.",
       });
     });
 };
 
-// Retrieve all studies from the database.
+// Retrieve all patient of the study #studName.
 exports.findAll = (req, res) => {
   const studyName = req.query.studyName;
   var condition = studyName
     ? { studyName: { $regex: new RegExp(studyName), $options: "i" } }
     : {};
 
-  Study.find(condition) // like select * if empty
+  Patient.find(condition) // like select * if empty
     .then((data) => {
       res.send(data);
     })
@@ -46,29 +47,30 @@ exports.findAll = (req, res) => {
       res.status(500).send({
         message:
           err.message ||
-          "Some error occurred while retrieving the list of studies.",
+          "Some error occurred while retrieving the list of patient of study # " ||
+          studyName,
       });
     });
 };
 
-// Find a single Study with an id
+// Find a single Patient with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Study.findById(id)
+  Patient.findById(id)
     .then((data) => {
       if (!data)
-        res.status(404).send({ message: "Not found Study with id: " + id });
+        res.status(404).send({ message: "Not found Patient with id: " + id });
       else res.send(data);
     })
     .catch((err) => {
       res
         .status(500)
-        .send({ message: "Error retrieving Study with id: " + id });
+        .send({ message: "Error retrieving Patient with id: " + id });
     });
 };
 
-// Update a Study by the id in the request
+// Update a Patient by the id in the request
 exports.update = (req, res) => {
   if (!req.body) {
     // information received by post
@@ -79,40 +81,40 @@ exports.update = (req, res) => {
 
   const id = req.params.id;
   // asscess to the information for get and post is in the URL so PARAMS is used
-  Study.findByIdAndUpdate(id, req.body)
+  Patient.findByIdAndUpdate(id, req.body)
     .then((data) => {
       if (!data) {
         res.status(404).send({
-          message: `The study was not found and thus we cannot update the study with id: ${id}. `,
+          message: `The patient was not found and thus we cannot update the patient with id: ${id}. `,
         });
-      } else res.send({ message: "Study was updated successfully." });
+      } else res.send({ message: "Patient was updated successfully." });
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Study that has id: " + id,
+        message: "Error updating Patient that has id: " + id,
       });
     });
 };
 
-// Delete a Study with the specified id in the request
+// Delete a Patient with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
-  Study.findByIdAndRemove(id)
+  Patient.findByIdAndRemove(id)
     .then((data) => {
       if (!data) {
         res.status(404).send({
-          message: `The study that has the id: ${id} was not found and cannot be deleted`,
+          message: `The patient that has the id: ${id} was not found and cannot be deleted`,
         });
       } else {
         res.send({
-          message: "Study deleted successfully!",
+          message: "Patient deleted successfully!",
         });
       }
     })
     .catch((err) => {
       console.log(err);
       res.status(500).send({
-        message: "Could not delete the Study that has id: " + id,
+        message: "Could not delete the Patient that has id: " + id,
       });
     });
 };

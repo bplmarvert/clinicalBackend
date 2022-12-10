@@ -2,7 +2,7 @@ module.exports = (app) => {
   const study = require("../controllers/study.controller.js");
 
   var router = require("express").Router();
-
+  // **************** Studies **************** //
   // Create a new study
   router.post("/create", study.create);
 

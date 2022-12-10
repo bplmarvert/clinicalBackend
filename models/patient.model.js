@@ -1,9 +1,12 @@
 module.exports = (mongoose) => {
   var schema = mongoose.Schema(
     {
+      studyName: String,
       patientName: String,
       birthday: Date,
+      sex: String,
       email: String,
+      treatment: String,
     },
     { timestamps: true }
   );
