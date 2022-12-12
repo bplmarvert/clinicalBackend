@@ -9,6 +9,9 @@ module.exports = (app) => {
   // Retrieve all patients
   router.get("/findAll", patient.findAll);
 
+  // retrieve patients by study
+  router.get("/findByStudy/:onGoingStudyName", patient.findByStudy);
+
   // Retrieve a single patient with id
   router.get("/:id", patient.findOne);
 

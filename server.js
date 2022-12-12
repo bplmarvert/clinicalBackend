@@ -15,6 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 require("./routes/study.route")(app);
 require("./routes/patient.route")(app);
+require("./routes/aevent.route")(app);
 
 const db = require("./models");
 db.mongoose
@@ -33,10 +34,6 @@ db.mongoose
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to Clinical management application." });
-});
-
-app.get("/demo1", (req, res) => {
-  res.redirect("/study");
 });
 
 // set port, listen for requests

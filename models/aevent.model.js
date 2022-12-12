@@ -1,9 +1,10 @@
 module.exports = (mongoose) => {
   var schema = mongoose.Schema(
     {
-      eventTitle: String,
-      eventDesc: String,
-      eventDt: Date,
+      patientName: String,
+      aEventTitle: String,
+      aEventDesc: String,
+      aEventDt: Date,
     },
     { timestamps: true }
   );
@@ -14,6 +15,6 @@ module.exports = (mongoose) => {
     return object;
   });
 
-  const AdverseEvent = mongoose.model("adverseEvent", schema);
-  return AdverseEvent;
+  const AEvent = mongoose.model("aEvent", schema);
+  return AEvent;
 };

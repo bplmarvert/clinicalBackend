@@ -118,3 +118,22 @@ exports.delete = (req, res) => {
       });
     });
 };
+
+// Find all patients of a Study
+exports.findByStudy = (req, res) => {
+  const studyName = req.params.onGoingStudyName;
+  console.log("req = ", req.params);
+
+  Patient.find({ studyName: studyName })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send({
+        message:
+          err.message ||
+          "Some error occurred while retrieving patients of study " + studyName,
+      });
+    });
+};
