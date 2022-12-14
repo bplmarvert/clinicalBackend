@@ -122,7 +122,7 @@ exports.delete = (req, res) => {
 // Find all patients of a Study
 exports.findByStudy = (req, res) => {
   const studyName = req.params.onGoingStudyName;
-  console.log("req = ", req.params);
+  //console.log("req = ", req.params);
 
   Patient.find({ studyName: studyName })
     .then((data) => {

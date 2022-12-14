@@ -6,6 +6,9 @@ var corsOptions = {
   origin: "http://localhost:3000",
 };
 
+//const { authMiddleware } = require("./authentication/authentication.js");
+//app.use(authMiddleware);
+
 app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
@@ -16,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 require("./routes/study.route")(app);
 require("./routes/patient.route")(app);
 require("./routes/aevent.route")(app);
+require("./routes/user.route")(app);
 
 const db = require("./models");
 db.mongoose

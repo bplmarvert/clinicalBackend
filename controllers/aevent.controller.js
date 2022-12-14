@@ -121,7 +121,7 @@ exports.delete = (req, res) => {
 // Find all events of a Patient
 exports.findByPatient = (req, res) => {
   const patientName = req.params.onGoingPatientName;
-  console.log("req = ", req.params);
+  //console.log("req = ", req.params);
 
   AEvent.find({ patientName: patientName })
     .then((data) => {

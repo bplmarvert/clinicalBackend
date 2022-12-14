@@ -1,11 +1,8 @@
-const Study = require("./");
 module.exports = (mongoose) => {
   var schema = mongoose.Schema(
     {
-      invName: String,
-      speciality: String,
-      email: String,
-      studyId,
+      userName: String,
+      password: String,
     },
     { timestamps: true }
   );
@@ -16,6 +13,6 @@ module.exports = (mongoose) => {
     return object;
   });
 
-  const Investigator = mongoose.model("investigator", schema);
-  return Investigator;
+  const User = mongoose.model("user", schema);
+  return User;
 };
