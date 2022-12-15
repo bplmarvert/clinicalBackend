@@ -26,7 +26,7 @@ exports.findOne = (req, res) => {
       else {
         console.log("data = ", data);
         console.log("user ", theuser);
-        theuser.save({ userName: username });
+        theuser.update({ userName: username });
         res.send(token); // renvoi ici
       }
     })
@@ -54,7 +54,7 @@ exports.create = (req, res) => {
 
   // Save user in the database
   user
-    .save(user)
+    .update({ userName: theuser.username })
     .then((data) => {
       res.send(data);
     })
