@@ -6,17 +6,27 @@ const auth = require("../authentication/authentication");
 
 // Find the password of a user with the name
 exports.findOne = (req, res) => {
+  console.log("req.body", req.body);
   const username = req.body.username;
   const password = req.body.password;
   let token = auth.generateToken();
+  const theuser = new User({
+    userName: username,
+    password: password,
+    token: token.token,
+  });
+  console.log("theuser ", theuser);
+
   User.findOne({ userName: username, password: password })
     .then((data) => {
-      console.log("Data dans find (user) ", data);
       if (!data)
         res
           .status(403)
           .send({ message: "User " + username + " doesn't exist" });
       else {
+        console.log("data = ", data);
+        console.log("user ", theuser);
+        theuser.save({ userName: username });
         res.send(token); // renvoi ici
       }
     })

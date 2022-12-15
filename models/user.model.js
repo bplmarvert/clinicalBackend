@@ -3,6 +3,7 @@ module.exports = (mongoose) => {
     {
       userName: String,
       password: String,
+      token: String,
     },
     { timestamps: true }
   );
